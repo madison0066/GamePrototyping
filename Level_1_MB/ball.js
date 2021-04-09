@@ -16,8 +16,8 @@ function Ball()
 	this.y = canvas.height/2;
 	
 
-	this.width = 100;
-	this.height = 100;
+	this.width = 75;
+	this.height = 75;
 	
 	this.vx = 0;
 	this.vy = 0;
@@ -49,7 +49,7 @@ function Ball()
 
 
 	ball.vx = 2;
-	ball.vy = 0;
+	ball.vy = 2;
 	
 	
 	timer = setInterval(animate, interval);
@@ -72,7 +72,15 @@ function Ball()
         if ( ball.x < 0 + ball.width/2){
             ball.vx = -ball.vx;
     
-        }
+		}
+		if (ball.y > canvas.height - ball.width/2)
+		{
+			ball.vy = -ball.vy;
+		}
+		if ( ball.y < 0 + ball.width/2){
+            ball.vy = -ball.vy;
+    
+		}
         //---------------------------------------------------
         
         ball.draw();
