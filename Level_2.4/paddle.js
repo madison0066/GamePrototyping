@@ -17,7 +17,7 @@ context = canvas.getContext("2d");
 player = new GameObject();
 
 
-player.x = player.width/2;
+player.x = 0;
 player.width = 25
 player.height = 200
 	player.force = 2;
