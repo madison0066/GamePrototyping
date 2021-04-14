@@ -3,18 +3,21 @@ var context;
 var timer;
 var interval = 1000/60;
 var ball;
+var player1;
 
-var counter = 0;
+//var counter = 0;
 
 
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
-	ball= new Ball();
+	ball= new GameObject();
+
+	player1 = new GameObject();
 	
 
 
-function Ball()
+function GameObject()
 {
 
 	this.x = canvas.width/2;
@@ -30,7 +33,7 @@ function Ball()
 	this.color = "#33FFE9";
 	
 	
-	this.draw = function()
+	this.drawCircle = function()
 	{
 		context.save();
 			context.translate(this.x, this.y);
@@ -50,7 +53,16 @@ function Ball()
 		context.fillText(counter, 75, 125)
 		context.fillText("Counter", 75, 75)
 		
-	}	
+	}
+	
+	
+	this.drawRect = function(){
+		context.save();
+		context.fillStyle = this.color;
+		context.translate(this.x, this.y);
+		context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
+		context.restore();
+	}
 	
 	//This changes the player's position
 	this.move = function()
@@ -82,14 +94,14 @@ function Ball()
         {
 			
 			ball.vx = -ball.vx;
-			counter ++;
+			//counter ++;
 
 				
         }
     
         if ( ball.x < 0 + ball.width/2){
 			ball.vx = -ball.vx;
-			counter++;
+			//counter++;
 
 			
     
@@ -97,16 +109,21 @@ function Ball()
 		if (ball.y > canvas.height - ball.width/2)
 		{
 			ball.vy = -ball.vy;
-			counter++;
+			//counter++;
 		}
 		if ( ball.y < 0 + ball.width/2){
 			ball.vy = -ball.vy;
-			counter++;
+			//counter++;
 			
     
 		}
         //---------------------------------------------------
-        
-		ball.draw();
+		
+		//Draws the ball 
+		ball.drawCircle();
+
+		//Draws the paddle 
+		player1.drawRect();
+
 		
     }
