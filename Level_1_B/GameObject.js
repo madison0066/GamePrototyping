@@ -5,7 +5,7 @@ var interval = 1000/60;
 var ball;
 var player1;
 
-//var counter = 0;
+var counter = 0;
 
 
 
@@ -43,8 +43,8 @@ function GameObject()
             context.closePath();
 			context.fill();
 			
-			//context.font = "30px Arial";
-			//context.fillText(":)", 76, 10)
+			context.font = "30px Arial";
+			context.fillText(":)", 76, 10)
 			
 		context.restore();
 
@@ -94,14 +94,14 @@ function GameObject()
         {
 			
 			ball.vx = -ball.vx;
-			//counter ++;
+			counter ++;
 
 				
         }
     
         if ( ball.x < 0 + ball.width/2){
 			ball.vx = -ball.vx;
-			//counter++;
+			counter++;
 
 			
     
@@ -109,11 +109,11 @@ function GameObject()
 		if (ball.y > canvas.height - ball.width/2)
 		{
 			ball.vy = -ball.vy;
-			//counter++;
+			counter++;
 		}
 		if ( ball.y < 0 + ball.width/2){
 			ball.vy = -ball.vy;
-			//counter++;
+			counter++;
 			
     
 		}

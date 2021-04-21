@@ -4,11 +4,13 @@ var timer;
 var interval = 1000/60;
 var ball;
 
-
+var p1Wins = 0;
+var p2Wins = 0;
 
 
 canvas = document.getElementById("canvas");
 context = canvas.getContext("2d");	
+
 ball= new GameObject();
 
 
@@ -23,7 +25,7 @@ function GameObject()
 	this.vx = 3;
 	this.vy = 3;
 	
-	this.color = "#33FFE9";
+	this.color = "#00000";
 	
 	
 	this.drawCircle = function()
@@ -37,12 +39,24 @@ function GameObject()
 			context.fill();
 			
 		context.restore();
-		context.font = "30px Arial";
 
 		
 	}
+
+	this.drawCounter = function(){
+		//context.save();
+
+			//context.translate(this.x, this.y);
+			context.font = "30px Times New Roman";
+			context.fillText(p1Wins, 450, 125)
+			context.fillText(p2Wins, 560, 125)
+			context.fillText("Player 1 || Player 2", 400, 75)
+			//console.log(( 75, 125)
+		//context.restore();
+	}
 		
 	this.drawRect = function(){
+
 		context.save();
 			context.fillStyle = this.color;
 			context.translate(this.x, this.y);
@@ -163,28 +177,27 @@ function GameObject()
         {
 			ball.x = 512;
 			ball.y = 400;
-			//ball.vx = -ball.vx;
-			//counter ++;	
+			p1Wins ++;	
         }
 		// If the ball moves off of the left of the screen
         if ( ball.x < -200 + ball.width/2){
 			
 			ball.x = 512;
 			ball.y = 400;
-			//counter++;
+			p2Wins ++;
 
 		}
 		if (ball.y > canvas.height - ball.width/2)
 		{
 			ball.vy = -ball.vy;
-			//counter++;
+			
 		}
 		if ( ball.y < 0 + ball.width/2){
 			ball.vy = -ball.vy;
-			//counter++;
+		
 		
 		}
-		//---------------------------------------------------
+
 		
 			//Collision 
 
@@ -258,6 +271,8 @@ function GameObject()
 	}
 
 		
+
+		ball.drawCounter()
 		//Draws the ball 
 		ball.drawCircle()
 		//Moves the ball
