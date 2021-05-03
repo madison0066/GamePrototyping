@@ -57,7 +57,13 @@ function animate()
     {
 		context.clearRect(0,0,canvas.width, canvas.height);	
 
-		
+		context.strokeStyle = "black";
+		context.beginPath();
+		context.moveTo(ball.x, ball.y);
+		context.lineTo(player.x, player.y)
+		context.closePath();
+		context.lineWidth = 3;
+		context.stroke();
 
 				
 		//Image of Ric for the ball 
@@ -146,8 +152,6 @@ function animate()
         player.vx *= frictionX;
         player.x += player.vx;
        
-
-		player.drawLine()
 
 
 		ball.drawCounter()
