@@ -12,7 +12,9 @@ var p1Wins = 0;
 
 var frictionX = .75;	
 var frictionY = .75;
-var gravity = 1;
+var gravity = 2;
+
+var force = 2;
 
 
 
@@ -50,7 +52,7 @@ timer = setInterval(animate, interval);
 
 ball= new GameObject();
 
-ball.vx = 3;
+ball.vx = 1;
 //ball.vy = 4;
 
 function animate()
@@ -111,28 +113,30 @@ function animate()
 
 		// If the ball hits the first paddle or player 1s paddle
 	if (ball.hitTestObject(player)){
-		ball.x = player.x + ball.width/2 + player.width/2;
-		console.log("hit paddle")
-		//Changes the direction of the ball so it travels in the opposite direction.
-		 ball.vx = -ball.vx;
-		 p1Wins ++;
-
-
-		//Checking for collision in the top portino of the paddle 
-		if(ball.y < player.x - player.width/5){
-	
+		if (ball.x < player.x - (player.width/3)){
+			//Changes the direction of the ball so it travels in the opposite direction.
+		 	ball.vx -= -ball.force *5;
 			ball.vy = -25;
+		 	p1Wins ++;
+		}
+		//Checking for collision in the top portino of the paddle 
+		else if(ball.x < player.x - (player.width/6)){
+			ball.vx -= ball.force;
+			ball.vy = -15;
+			p1Wins ++;
 		
 		}
 		//Checking for collision in the bottom portion of the paddle 
-		if(ball.y > player.x + player.width/5){
-	
-			ball.vy = -25;
+		else if(ball.x > player.x + (player.width/6)){
+			ball.vx += ball.force;
+			ball.vy = -15;
+			p1Wins ++;
 		}
 	
 		//Checking for the middle portion of the paddle and bounces off. 
-		if ( ball.y > player.x - player.width/5 && ball.y < player.x + player.height/5){
-			ball.vx = 0;
+		else{
+			ball.vy = -15;
+			p1Wins ++;
 		}
 
     }
@@ -157,8 +161,6 @@ function animate()
 		ball.drawCounter()
 		//Draws the ball 
 		ball.drawCircle()
-
-		//ball.grav()
 		
 		//Moves the ball
 		ball.ballMove()
@@ -166,11 +168,7 @@ function animate()
 		player.drawRect()
 
 
-		
-
-    }
-
-
+	}
 
 
 

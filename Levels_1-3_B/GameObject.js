@@ -87,53 +87,17 @@ function GameObject()
 	player.y += player.vy;
 }
 
- this.showFriction = function()
-{
-	if(d)
-	{	
-		player.vx += player.ax * player.force;
-	}
-	if(a)
-	{
-		player.vx += player.ax * -player.force;
-	}
-	
-	//--------------Apply friction to the Velocity X-----------------------------------------
-	player.vx *= frictionX;
-	player.vy *= frictionY;
-	//---------------------------------------------------------------------------------------
-	player.x += player.vx;
-	player.y += player.vy;
-}
 
-this.showGravity = function()
-{
-	
-	if(d)
-	{	
-		player.vx += player.ax * player.force;
-	}
-	if(a)
-	{
-		player.vx += player.ax * -player.force;
-	}
-
-
-}
 	
 	//This changes the player's position
 	this.ballMove = function()
 	{
 		this.x += this.vx;
 		this.y += this.vy;
+		this.vy += this.gravity;
+
 	}
 
-
-	/*this.grav = function(){
-		this.gravitySpeed += this.gravity;
-		this.x += this.vx;
-		this.y += this.vy + this.gravitySpeed;
-	}*/
 
 
 	this.playerMove = function()
