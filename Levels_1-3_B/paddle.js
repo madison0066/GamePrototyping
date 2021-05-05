@@ -90,7 +90,7 @@ function animate()
 			ball.vx = -ball.vx;
 		
 		}
-		if ( ball.x > canvas.width + ball.width/2){
+		if ( ball.x > canvas.width - ball.width/2){
 			ball.vx = -ball.vx;
 		
 		}
