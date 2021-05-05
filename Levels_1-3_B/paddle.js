@@ -113,9 +113,9 @@ function animate()
 
 		// If the ball hits the first paddle or player 1s paddle
 	if (ball.hitTestObject(player)){
-		if (ball.x < player.x - (player.width/6)){
+		if (ball.x < player.x - (player.width/3)){
 			//Changes the direction of the ball so it travels in the opposite direction.
-		 	//ball.vx -= -ball.force *5;
+		 	ball.vx -= ball.force *5;
 			ball.vy = -15;
 		 	p1Wins ++;
 		}
@@ -127,7 +127,7 @@ function animate()
 		
 		}
 		//Checking for collision in the bottom portion of the paddle 
-		else if(ball.x > player.x + (player.width/6)){
+		else if(ball.x > player.x + (player.width/3)){
 			ball.vx += ball.force;
 			ball.vy = -15;
 			p1Wins ++;
