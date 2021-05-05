@@ -115,7 +115,7 @@ function animate()
 	if (ball.hitTestObject(player)){
 		if (ball.x < player.x - (player.width/6)){
 			//Changes the direction of the ball so it travels in the opposite direction.
-		 	ball.vx -= -ball.force *5;
+		 	//ball.vx -= -ball.force *5;
 			ball.vy = -15;
 		 	p1Wins ++;
 		}
