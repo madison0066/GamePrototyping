@@ -91,10 +91,6 @@ function animate()
 	
 	
 	
-	//---------Objective: Get the blue pearl----------------------------------------------------------------------------------------------------
-	//---------Jump through and land on the block without changing the physics
-	
-	
 
 	while(platform1.hitTestPoint(player.bottom()+ player.height) && player.vy <=0)
 	{
