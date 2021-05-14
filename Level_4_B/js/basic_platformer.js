@@ -84,14 +84,14 @@ function animate()
 	if (player.y > canvas.height - player.height/2)
 	{
 		player.y =  canvas.height - player.height/2;
+		player.vy = 0;
 		
 	}
 	if ( player.y < player.height/2){
 		player.y = player.height/2;
-		
+		player.vy = 0; 
 	}
 
-	
 
 	while(platform0.hitTestPoint(player.bottom()) && player.vy >=0)
 	{
