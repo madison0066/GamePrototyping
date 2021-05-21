@@ -41,7 +41,7 @@ function animate()
 	
 	/*-----------These move the follower-----------------*/
 	//magnet(); //- eases the follower towards the player - 
-	point(); //- points at the player
+	//point(); //- points at the player
 	//follow(); //- follows the player
 	//orbit(); //- orbits the player using physics
 	//revolve(); //- orbits the player without physics.
