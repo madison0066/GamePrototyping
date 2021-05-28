@@ -6,6 +6,10 @@ var timer;
 var interval;
 var player;
 
+var dragon = new Image();
+dragon.src = "../dragon.png";
+
+
 
 //Gets the object to move
 
@@ -20,6 +24,7 @@ var player;
 		platform0.x = platform0.width/2;
 		platform0.y = player.y +player.height/2 + platform0.height/2;
 		platform0.color = "#66ff33";
+		
 		
 	
 	platform1 = new GameObject();
@@ -87,10 +92,6 @@ for(var b = 0; b < bulletAmount; b++)
 
 
 
-
-
-
-
 function animate()
 {
 	
@@ -153,13 +154,6 @@ function animate()
 	else{
 	 	gravity =  1
 	 }
-
-
-
-
-	
-
-
 
 	player.vx *= fX;
 	//player.vy *= fY;
@@ -302,7 +296,8 @@ function animate()
 	}
 
 
-	player.drawDebug();
+
+	//player.drawDebug();
 	platform0.drawRect();
 	platform1.drawRect();
 	water.drawRect();
@@ -311,8 +306,7 @@ function animate()
 	
 
 	player.drawRect();
-
-	states[currentState]();
+	player.drawPlayer();
 
 }
 

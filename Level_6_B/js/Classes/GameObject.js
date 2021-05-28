@@ -37,7 +37,12 @@ function GameObject(obj)
 			context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
 		context.restore();
 		
-	}	
+	}
+
+	this.drawPlayer = function()
+	{
+		context.drawImage(dragon, player.x, player.y, player.width, player.height);
+	}
 	
 	this.drawCircle = function()
 	{
