@@ -1,0 +1,25 @@
+canvas{
+	border:1px solid black;
+	width:800px;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+ 
+        background-color: black;
+        animation-name: example;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        }
+    @keyframes example {
+        0%   {background-color: black;}
+        10% {background-color: darkblue;}
+        20%  {background-color: blue;}
+        30%  {background-color: purple;}
+        40% {background-color: #d399e6;}
+        50% {background-color: #d399e6;}
+        60% {background-color: purple;}
+        70% {background-color: blue;}
+        80% {background-color: darkblue;}
+        90% {background-color: black;}
+        100% {background-color: black;}
+    }

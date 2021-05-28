@@ -198,8 +198,32 @@ function animate()
 	{
 		player.x = 2000;
 	}
+	while(electricalCurrent.hitTestPoint(player.left()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
+	while(electricalCurrent.hitTestPoint(player.top()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
+	while(electricalCurrent.hitTestPoint(player.bottom()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
 
 	while(electricalCurrent2.hitTestPoint(player.right()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
+	while(electricalCurrent2.hitTestPoint(player.left()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
+	while(electricalCurrent2.hitTestPoint(player.top()) && player.vx >=0)
+	{
+		player.x = 2000;
+	}
+	while(electricalCurrent2.hitTestPoint(player.bottom()) && player.vx >=0)
 	{
 		player.x = 2000;
 	}
