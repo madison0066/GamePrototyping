@@ -12,8 +12,16 @@ var numTargets = 10
 var dragon = new Image();
 dragon.src = "dragon.png";
 
+var waterSprite = new Image();
+waterSprite.src = "water.jpg";
+
 
 dragon.onload = function()
+{
+	animate();
+}
+
+waterSprite.onload = function()
 {
 	animate();
 }
@@ -30,6 +38,7 @@ dragon.onload = function()
 
 	platform0 = new GameObject();
 		platform0.width = 150;
+		platform0.height = 75;
 		platform0.x = platform0.width/2;
 		platform0.y = 550
 		
@@ -40,6 +49,7 @@ dragon.onload = function()
 	
 	platform1 = new GameObject();
 		platform1.width = 575;
+		platform1.height = 75;
 		platform1.x = canvas.width -platform1.width/2;
 		platform1.y = 550
 
@@ -186,8 +196,10 @@ function animate()
 
 	if (player.y >= water.y)
 	{
+		counter = 0;
 		player.x = 150;
 		player.y = 150;
+		
 	}
 
 
@@ -261,6 +273,9 @@ function animate()
 				{
 					counter++;
 					targets[i].y = randomRange(0,-245);
+					//platform0.y = randomRange(100,600)
+					platform1.y = randomRange(100,600);
+					platform1.x = randomRange(100,600)
 					
 				}
 			}
@@ -270,12 +285,14 @@ function animate()
 	//player.drawDebug();
 	platform0.drawRect();
 	platform1.drawRect();
-	water.drawRect();
+	//water.drawRect();
 
 	
 
 	//player.drawRect();
 	player.drawPlayer();
+
+	water.drawWater()
 
 	drawCounter();
 

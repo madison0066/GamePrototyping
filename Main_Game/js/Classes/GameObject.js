@@ -48,12 +48,16 @@ function GameObject(obj)
 	this.drawPlayer = function()
 	{
 		context.save();
-			context.fillStyle = this.color;
+			//context.fillStyle = this.color;
 			context.translate(this.x, this.y);
-			
 			context.drawImage(dragon, (-this.width/2), (-this.height/2), this.width, this.height);
 		context.restore();
 		
+	}
+
+	this.drawWater = function()
+	{
+		context.drawImage(waterSprite, 0, 650, canvas.width, canvas.height/4);
 	}
 
 	this.drawCircle = function()
