@@ -5,10 +5,18 @@ var context;
 var timer;
 var interval;
 var player;
+var counter = 0;
+var targets = [];
+var numTargets = 10
 
 var dragon = new Image();
-dragon.src = "../dragon.png";
+dragon.src = "dragon.png";
 
+
+dragon.onload = function()
+{
+	animate();
+}
 
 
 //Gets the object to move
@@ -18,20 +26,28 @@ dragon.src = "../dragon.png";
 	context = canvas.getContext("2d");	
 
 	player = new GameObject({x:150});
+	player.dragon = dragon;
 
 	platform0 = new GameObject();
 		platform0.width = 150;
 		platform0.x = platform0.width/2;
-		platform0.y = player.y +player.height/2 + platform0.height/2;
-		platform0.color = "#66ff33";
+		platform0.y = 550
+		
+		
+		platform0.color = "#0B1B91";
 		
 		
 	
 	platform1 = new GameObject();
 		platform1.width = 575;
 		platform1.x = canvas.width -platform1.width/2;
-		platform1.y = player.y +player.height/2 + platform1.height/2;
-		platform1.color = "#66ff33";
+		platform1.y = 550
+
+	
+
+		platform1.color = "#0B1B91";
+
+
 
 	water = new GameObject();
 		water.width = 1000;
@@ -41,22 +57,25 @@ dragon.src = "../dragon.png";
 
 
 
-	electricalCurrent = new GameObject();
-		electricalCurrent.width = 25;
-		electricalCurrent.height = 100;
-		electricalCurrent.x = canvas.width -platform1.width/2;
-		electricalCurrent.y = 20;
-		electricalCurrent.color = "#F6F7A0";
+		for(var i =0; i<numTargets; i++){
+			targets[i] = new GameObject();
+			targets[i].width = 25;
+			targets[i].height = 100;
+			targets[i].radius = 10;
+			targets[i].x = randomRange(0,1000)
+			targets[i].y = randomRange(0,600)
+			targets[i].color = "#ADF1EA";
+		}
 
 
-	electricalCurrent2 = new GameObject();
-		electricalCurrent2.width = 25;
-		electricalCurrent2.height = 100;
-		electricalCurrent2.x = canvas.width -platform1.width/2 + 100;
-		electricalCurrent2.y = 40;
-		electricalCurrent2.color = "#F6F7A0";
-
+		function drawCounter(){
+		
+			context.font = "30px Arial bold";
+			context.fillText(counter, 120, 50);
+			context.fillText("Score:", 25, 50);
+			context.fillStyle = "white";
 	
+		}
 
 	var fX = .85;
 	var fY = 1;
@@ -75,7 +94,7 @@ var currentBullet = 0;
 var fireCounter = 30;
 var fireRate = 5;
 //How far the bullet can go
-var range = canvas.width/2;
+var range = canvas.width;
 //The amount of bullets to create
 var bulletAmount = 25;
 //Modifies the direction of the bullet when fired
@@ -89,6 +108,11 @@ for(var b = 0; b < bulletAmount; b++)
 	bullets[b].y = -1000;
 }
 
+function randomRange(high,low)
+{
+	return Math.random() * (high-low) + low;
+}
+
 
 
 
@@ -96,26 +120,6 @@ function animate()
 {
 	
 	context.clearRect(0,0,canvas.width, canvas.height);	
-
-
-	//Moves the platform
-	electricalCurrent.y += 2;
-	electricalCurrent2.y += 3;
-
-	//Bounding box for the electrical
-	if (electricalCurrent.y > canvas.height - electricalCurrent.height/2)
-	{
-		electricalCurrent.y = 2;
-	
-	}
-
-	if (electricalCurrent2.y > canvas.height - electricalCurrent2.height/2)
-	{
-		electricalCurrent2.y = 2;
-	
-	}
-
-
 
 
 	if(w && player.canJump && player.vy ==0)
@@ -182,54 +186,20 @@ function animate()
 
 	if (player.y >= water.y)
 	{
-		player.x = 2000;
+		player.x = 150;
+		player.y = 150;
 	}
 
 
-
-	//Collision for the electrical current 
-	while(electricalCurrent.hitTestPoint(player.right()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent.hitTestPoint(player.left()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent.hitTestPoint(player.top()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent.hitTestPoint(player.bottom()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-
-	while(electricalCurrent2.hitTestPoint(player.right()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent2.hitTestPoint(player.left()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent2.hitTestPoint(player.top()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
-	while(electricalCurrent2.hitTestPoint(player.bottom()) && player.vx >=0)
-	{
-		player.x = 2000;
-	}
 //--------------------------------------------------------------------------------------
 
-	while(platform0.hitTestPoint(player.bottom()) && player.vy >=0)
+	while(platform0.hitTestPoint(player.bottom()) || platform0.hitTestPoint(player.bottomLeft()) || platform0.hitTestPoint(player.bottomRight())&& player.vy >=0)
 	{
 		player.y--;
 		player.vy = 0;
 		player.canJump = true;
 	}
-	while(platform0.hitTestPoint(player.left()) && player.vx <=0)
+	while(platform0.hitTestPoint(player.left()) && player.vy >=0)
 	{
 		player.x++;
 		player.vx = 0;
@@ -240,39 +210,13 @@ function animate()
 		player.vx = 0;
 	}
 	
-	while(platform1.hitTestPoint(player.bottom()) && player.vy >=0)
+	while(platform1.hitTestPoint(player.bottom()) || platform1.hitTestPoint(player.bottomLeft()) || platform1.hitTestPoint(player.bottomRight()) && player.vy >=0)
 	{
 		player.y--;
 		player.vy = 0;
 		player.canJump = true;
 	}
-	while(platform1.hitTestPoint(player.left()) && player.vx <=0)
-	{
-		player.x++;
-		player.vx = 0;
-	}
-	while(platform1.hitTestPoint(player.right()) && player.vx >=0)
-	{
-		player.x--;
-		player.vx = 0;
-	}
 
-
-	// Gets the player to just rest on the level. 
-
-	while(platform0.hitTestPoint({x:player.x + player.width/2, y:player.y/2 }) && player.vy >=0 + player.width)
-	{
-		player.y--;
-		player.vy = -10;
-		player.canJump = true;
-	}
-	
-	while(platform1.hitTestPoint({x:player.x + player.width/2, y:player.y/2}) && player.vy >=0 + player.width)
-	{
-		player.y--;
-		player.vy = 10;
-		player.canJump = true;
-	}
 
 
 	for(var b = 0; b < bullets.length; b++)
@@ -296,17 +240,44 @@ function animate()
 	}
 
 
+	//Moving Targets
+	
+	for(var i =0; i<targets.length; i++){
+		targets[i].y += 3;
+
+		targets[i].drawCircle()
+		console.log(targets[i])
+		if(targets[i].y > canvas.height)
+		{
+			targets[i].y = randomRange(0,-245);
+		}
+
+	}
+	for(var i =0; i<targets.length; i++)
+	{
+		for(var b =0; b<targets.length; b++)
+			{
+				if(targets[i].hitTestObject(bullets[b]))
+				{
+					counter++;
+					targets[i].y = randomRange(0,-245);
+					
+				}
+			}
+	}
+
 
 	//player.drawDebug();
 	platform0.drawRect();
 	platform1.drawRect();
 	water.drawRect();
-	electricalCurrent.drawRect();
-	electricalCurrent2.drawRect();
+
 	
 
-	player.drawRect();
+	//player.drawRect();
 	player.drawPlayer();
+
+	drawCounter();
 
 }
 
@@ -314,9 +285,9 @@ function animate()
 function fireBullet() {
 
 	if (fireCounter <= 0) {
-		//place the bullet at the player's position minus the bullet's world
-		bullets[currentBullet].x = player.x //- bullets[currentBullet].world.x;
-		bullets[currentBullet].y = player.y //- bullets[currentBullet].world.y;
+		
+		bullets[currentBullet].x = player.x 
+		bullets[currentBullet].y = player.y 
 		//set the velocity using the dir modifier
 		bullets[currentBullet].vx = dir.x * bullets[currentBullet].force;
 		bullets[currentBullet].vy = dir.y * bullets[currentBullet].force;

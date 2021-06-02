@@ -13,7 +13,7 @@ document.addEventListener("click", onMouseClick);
 function press(e)
 {
 	//---This logs key codes into the browser's console.
-	console.log(e.keyCode);
+	//console.log(e.keyCode);
 	
 	if(e.keyCode == 87)
 	{
@@ -73,6 +73,6 @@ function release(e)
 }
 
 function onMouseClick(){
-	console.log("Mouse clicking")
+	//console.log("Mouse clicking")
 	fireBullet()
 }

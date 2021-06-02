@@ -11,6 +11,9 @@ function GameObject(obj)
 		this.ay = 1;
 		this.vx = 0;
 		this.vy = 0;
+		this.dragon; 
+		this.waterImage;
+		this.radius = 10;
 
 	//whether or not the object can jump
 	this.canJump = false;
@@ -28,6 +31,9 @@ function GameObject(obj)
 				}
 			}
 		}
+
+
+
 		
 	this.drawRect = function()
 	{
@@ -41,16 +47,23 @@ function GameObject(obj)
 
 	this.drawPlayer = function()
 	{
-		context.drawImage(dragon, player.x, player.y, player.width, player.height);
+		context.save();
+			context.fillStyle = this.color;
+			context.translate(this.x, this.y);
+			
+			context.drawImage(dragon, (-this.width/2), (-this.height/2), this.width, this.height);
+		context.restore();
+		
 	}
-	
+
 	this.drawCircle = function()
 	{
 		context.save();
 			context.fillStyle = this.color;
-			context.beginPath();
+			
 			context.translate(this.x, this.y);
-			context.arc(0, 0, this.radius(), 0, 360 *Math.PI/180, true);
+			context.beginPath();
+			context.arc(0, 0, this.radius, 0, 360 *Math.PI/180, true);
 			context.closePath();
 			context.fill();
 		context.restore();
@@ -88,12 +101,24 @@ function GameObject(obj)
 	{
 		return {x:this.x , y:this.y + this.height/2}
 	}
+
+	this.bottomLeft = function() 
+	{
+		return {x:this.x  - this.width/2, y:this.y + this.height/2}
+	}
+
+	this.bottomRight = function() 
+	{
+		return {x:this.x  + this.width/2, y:this.y + this.height/2}
+	}
 	
 	this.hitTestObject = function(obj)
 	{
 		if(this.left().x <= obj.right().x && 
 		   this.right().x >= obj.left().x &&
 		   this.top().y <= obj.bottom().y &&
+		   this.top().y <= obj.bottomLeft().y &&
+		   this.top().y <= obj.bottomRight().y &&
 		   this.bottom().y >= obj.top().y)
 		{
 			return true
