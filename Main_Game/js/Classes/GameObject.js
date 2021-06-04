@@ -56,6 +56,7 @@ function GameObject(obj)
 		
 	}
 
+
 	this.drawWater = function()
 	{
 		context.drawImage(waterSprite, 0, 650, canvas.width, canvas.height/4);

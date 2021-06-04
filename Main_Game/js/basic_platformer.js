@@ -19,6 +19,8 @@ var fireSprite = new Image();
 fireSprite.src = "fire2.png";
 
 
+
+
 dragon.onload = function()
 {
 	animate();
@@ -34,6 +36,8 @@ fireSprite.onload = function()
 {
 	animate();
 }
+
+
 
 
 //Gets the object to move
@@ -53,7 +57,7 @@ fireSprite.onload = function()
 
 	platform0 = new GameObject();
 		platform0.width = 150;
-		platform0.height = 75;
+		platform0.height = 50;
 		platform0.x = platform0.width/2;
 		platform0.y = 550
 		
@@ -64,7 +68,7 @@ fireSprite.onload = function()
 	
 	platform1 = new GameObject();
 		platform1.width = 575;
-		platform1.height = 75;
+		platform1.height = 50;
 		platform1.x = canvas.width -platform1.width/2;
 		platform1.y = 550
 
@@ -233,6 +237,7 @@ function animate()
 		player.y--;
 		player.vy = 0;
 		player.canJump = true;
+		
 	}
 	while(platform0.hitTestPoint(player.left()) && player.vy >=0)
 	{
@@ -303,15 +308,7 @@ function animate()
 					platform1.x = randomRange(100,600)
 					
 				}
-				if(platform0.hitTestObject(player) && targets[i].hitTestObject(bullets[b]))
-				{
-					counter += 2;
-					targets[i].y = randomRange(0,-245);
-					//platform0.y = randomRange(100,600)
-					platform1.y = randomRange(100,600);
-					platform1.x = randomRange(100,600)
-					
-				}
+
 			}
 	}
 
@@ -319,9 +316,6 @@ function animate()
 	//player.drawDebug();
 	platform0.drawRect();
 	platform1.drawRect();
-	//water.drawRect();
-
-	
 
 	//player.drawRect();
 	player.drawPlayer();
