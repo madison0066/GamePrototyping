@@ -15,6 +15,9 @@ dragon.src = "dragon.png";
 var waterSprite = new Image();
 waterSprite.src = "water.jpg";
 
+var fireSprite = new Image();
+fireSprite.src = "fire2.png";
+
 
 dragon.onload = function()
 {
@@ -27,11 +30,23 @@ waterSprite.onload = function()
 }
 
 
+fireSprite.onload = function()
+{
+	animate();
+}
+
+
 //Gets the object to move
 
 
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");	
+	canvas.addEventListener("mousemove", track);
+
+	var interval = 1000/60;
+	var timer = setInterval(animate, interval);	
+
+	var mouse = {x:0,y:0};
 
 	player = new GameObject({x:150});
 	player.dragon = dragon;
@@ -87,6 +102,14 @@ waterSprite.onload = function()
 	
 		}
 
+		
+		function track(e)
+			{
+				var rect = canvas.getBoundingClientRect();
+				mouse.x = e.clientX - rect.left;
+				mouse.y = e.clientY - rect.top;
+			}
+
 	var fX = .85;
 	var fY = 1;
 	
@@ -101,7 +124,7 @@ var bullets = [];
 //Used to select a bullet to fire
 var currentBullet = 0;
 //The timer for each bullet
-var fireCounter = 30;
+var fireCounter = 0;
 var fireRate = 5;
 //How far the bullet can go
 var range = canvas.width;
@@ -245,9 +268,11 @@ function animate()
 		}
 
 	
-		
+		bullets[b].height = 50;
+		bullets[b].width = 50;
 		bullets[b].move();
-		bullets[b].drawRect();
+		//bullets[b].drawRect();
+		bullets[b].drawFire();
 	
 	}
 
@@ -258,7 +283,7 @@ function animate()
 		targets[i].y += 3;
 
 		targets[i].drawCircle()
-		console.log(targets[i])
+		//console.log(targets[i])
 		if(targets[i].y > canvas.height)
 		{
 			targets[i].y = randomRange(0,-245);
@@ -272,6 +297,15 @@ function animate()
 				if(targets[i].hitTestObject(bullets[b]))
 				{
 					counter++;
+					targets[i].y = randomRange(0,-245);
+					//platform0.y = randomRange(100,600)
+					platform1.y = randomRange(100,600);
+					platform1.x = randomRange(100,600)
+					
+				}
+				if(platform0.hitTestObject(player) && targets[i].hitTestObject(bullets[b]))
+				{
+					counter += 2;
 					targets[i].y = randomRange(0,-245);
 					//platform0.y = randomRange(100,600)
 					platform1.y = randomRange(100,600);
@@ -303,11 +337,20 @@ function fireBullet() {
 
 	if (fireCounter <= 0) {
 		
+		var dx = mouse.x - player.x;
+		var dy = mouse.y - player.y;
+
+	
+		var radians = Math.atan2(dy, dx);
+
+		bullets[currentBullet].vx = Math.cos(radians)*bullets[currentBullet].force;
+		bullets[currentBullet].vy = Math.sin(radians)*bullets[currentBullet].force;
+
 		bullets[currentBullet].x = player.x 
 		bullets[currentBullet].y = player.y 
 		//set the velocity using the dir modifier
-		bullets[currentBullet].vx = dir.x * bullets[currentBullet].force;
-		bullets[currentBullet].vy = dir.y * bullets[currentBullet].force;
+		//bullets[currentBullet].vx = dir.x * bullets[currentBullet].force;
+		//bullets[currentBullet].vy = dir.y * bullets[currentBullet].force;
 		//reset the fireCounter
 		fireCounter = fireRate;
 		//increment the currentBullet index so that you can use the next bullet

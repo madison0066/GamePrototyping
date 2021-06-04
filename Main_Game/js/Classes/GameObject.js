@@ -12,8 +12,9 @@ function GameObject(obj)
 		this.vx = 0;
 		this.vy = 0;
 		this.dragon; 
-		this.waterImage;
+		this.waterSprite;
 		this.radius = 10;
+		this.fireSprite
 
 	//whether or not the object can jump
 	this.canJump = false;
@@ -60,6 +61,17 @@ function GameObject(obj)
 		context.drawImage(waterSprite, 0, 650, canvas.width, canvas.height/4);
 	}
 
+	this.drawFire = function()
+	{
+		context.save();
+		context.fillStyle = this.color;
+		context.translate(this.x, this.y);
+		//context.fillRect((-this.width/2), (-this.height/2), this.width, this.height);
+		context.drawImage(fireSprite, (-this.width/2), (-this.height/2), this.width, this.height);
+		context.restore();
+	}	
+
+
 	this.drawCircle = function()
 	{
 		context.save();
@@ -74,12 +86,6 @@ function GameObject(obj)
 		
 	}	
 
-	this.gameOver = function()
-	{
-		context.font = "30px Times New Roman";
-		context.fillText(" GAME OVER", canvas.width, canvas.height)
-	}
-	
 	this.move = function()
 	{
 		this.x += this.vx;
